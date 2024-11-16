@@ -2,83 +2,98 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="icon" type="image/x-icon" href="https://i.imgur.com/zpRbGB2.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/zpRbGB2.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nova+Square&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
 
-        <style>
-            .imgContainer {
-              background-color: black;
-              border-radius: 300px;
-              width: 500px;
-              height: 500px;
-            }
-      
-            .imgContainer img {
-              width: 100%;
-            }
-      
-            .agentDesc{
-              width: fit-content;
-            }
-          </style>
+  <style>
+    .imgContainer {
+      background-color: black;
+      border-radius: 300px;
+      width: 500px;
+      height: 500px;
+    }
+
+    .imgContainer img {
+      width: 100%;
+    }
+
+    .agentDesc {
+      width: fit-content;
+    }
+
+    .backButton {
+        transition: 0.1s;
+    }
+
+    .backButton:hover {
+        color: whitesmoke;
+        transform: scale(1.1);
+    }
+  </style>
 
 <body style="color: wheat; font-family: Nova Square; background:linear-gradient(90deg, #92101E 25%, #C01428 80%);">
 
-    <div class="container">
-        <div class="row mt-5">
-          <div class="col">
-            <div class="mx-auto img-fluid imgContainer" id="imgContainer">
-              <img id="agentPortrait">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col text-center">
-            <div class="display-4" id="title"></div>
-            <div class="rounded-5 card py-2 px-4 mx-auto agentDesc" id="agentDesc"></div>
-          </div>
+  <nav class="navbar" style="background-color:#9C1120;">
+    <div class="container-fluid">
+      <a class="backButton navbar-brand" style="color: wheat;" href="gallery.html">Back to Gallery</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col">
+        <div class="mx-auto img-fluid imgContainer" id="imgContainer">
+          <img id="agentPortrait">
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <div class="display-4" id="title"></div>
+        <div class="rounded-5 card py-2 px-4 mx-auto agentDesc" id="agentDesc"></div>
+      </div>
+    </div>
+  </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 
-    <script>
+  <script>
 
-        var title = document.getElementById("title");
-        var agentPortrait = document.getElementById("agentPortrait");
-        var imgContainer = document.getElementById("imgContainer");
-        var agentDesc = document.getElementById("agentDesc");
+    var title = document.getElementById("title");
+    var agentPortrait = document.getElementById("agentPortrait");
+    var imgContainer = document.getElementById("imgContainer");
+    var agentDesc = document.getElementById("agentDesc");
 
-        const getuuId = async (uuid) => {
-            var response = await fetch ('https://valorant-api.com/v1/agents/'+ uuid);
-            var agent = await response.json();
+    const getuuId = async (uuid) => {
+      var response = await fetch('https://valorant-api.com/v1/agents/' + uuid);
+      var agent = await response.json();
 
-            title.innerHTML = agent.data.displayName;
-            agentPortrait.src = agent.data.bustPortrait;
-            agentDesc.innerHTML = agent.data.description;
-        }
+      title.innerHTML = agent.data.displayName;
+      agentPortrait.src = agent.data.bustPortrait;
+      agentDesc.innerHTML = agent.data.description;
+    }
 
-        function loadData(){
-            const urlParameters = new URLSearchParams(window.location.search);
-            if(urlParameters.has("uuid")){
-                getuuId(urlParameters.get("uuid"));
-            } else {
-                title.innerHTML = "NO DATA";
-            }
-        }
-        loadData();
-    </script>
+    function loadData() {
+      const urlParameters = new URLSearchParams(window.location.search);
+      if (urlParameters.has("uuid")) {
+        getuuId(urlParameters.get("uuid"));
+      } else {
+        title.innerHTML = "NO DATA";
+      }
+    }
+    loadData();
+  </script>
 </body>
 </head>
